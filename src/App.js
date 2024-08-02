@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { DataProvider } from './MedalsDataContext';
+import Table from './Components/Table';
+import Chart from './Components/Chart';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const [activeTab, setActiveTab] = useState('table');
+
+    return (
+        <DataProvider>
+            <div className="App">
+                <div className="personal-details">
+                    <h4>HIMABINDU GOURLA</h4>
+                    <p>Email: himabindugourla@gmail.com</p>
+                    <p>Contact: 7981333419</p>
+                </div>
+                <div className="tabs">
+                    <button onClick={() => setActiveTab('table')} className={activeTab === 'table' ? 'active' : ''}>
+                        Table
+                    </button>
+                    <button onClick={() => setActiveTab('chart')} className={activeTab === 'chart' ? 'active' : ''}>
+                        Chart
+                    </button>
+                </div>
+                <div className="content">
+                    {activeTab === 'table' && <Table />}
+                    {activeTab === 'chart' && <Chart />}
+                </div>
+            </div>
+        </DataProvider>
+    );
+};
 
 export default App;
